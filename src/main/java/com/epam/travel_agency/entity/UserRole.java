@@ -12,9 +12,11 @@ import lombok.*;
 @IdClass(UserRoleId.class)
 public class UserRole {
     @Id
+    @Column(name = "user_id")
     private Long userId;
 
     @Id
+    @Column(name = "role")
     private String role;
 }
 
