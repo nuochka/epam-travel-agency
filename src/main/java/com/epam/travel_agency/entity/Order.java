@@ -1,5 +1,9 @@
 package com.epam.travel_agency.entity;
 
+import java.time.LocalDateTime;
+
+import com.epam.travel_agency.dto.order.OrderStatus;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,11 +19,16 @@ public class Order {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "tour_id", nullable = false)
     private Tour tour;
 
-    private String status;
+    private LocalDateTime bookingDate;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 }
 
