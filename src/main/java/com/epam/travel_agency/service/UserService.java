@@ -15,15 +15,20 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private  UserRepository userRepository;
-    private  UserRolesRepository userRolesRepository;
-    private  ModelMapper mapper;
-    private  BCryptPasswordEncoder passwordEncoder;
+
+    private final UserRepository userRepository;
+    private final UserRolesRepository userRolesRepository;
+    private final ModelMapper mapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public UserResponseDto register(UserRequestDto dto) {
 
         if (userRepository.existsByUsername(dto.getUsername())) {
             throw new RuntimeException("Username already exists");
+        }
+
+        if (userRepository.existsByEmail(dto.getEmail())) {
+            throw new RuntimeException("Email already exists");
         }
 
         User user = new User();
@@ -41,5 +46,4 @@ public class UserService {
 
         return response;
     }
-    
 }

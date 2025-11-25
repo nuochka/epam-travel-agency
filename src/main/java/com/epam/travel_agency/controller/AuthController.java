@@ -13,7 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
@@ -26,15 +25,16 @@ public class AuthController {
 
     @GetMapping("/login")
     public String getLogin() {
-        return "login";
+        return "auth/login";
     }
     
     @GetMapping("/register")
     public String getRegister() {
-        return "register";
+        return "auth/register";
     }
 
     @PostMapping("/register")
+    @ResponseBody
     public UserResponseDto register(@Valid @RequestBody UserRequestDto dto) {
         return userService.register(dto);
     }
