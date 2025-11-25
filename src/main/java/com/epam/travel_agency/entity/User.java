@@ -1,5 +1,7 @@
 package com.epam.travel_agency.entity;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,4 +24,8 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Set<UserRole> roles;
 }

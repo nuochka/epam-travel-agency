@@ -63,6 +63,14 @@ public class OrderService {
                 .toList();
     }
 
+    public List<OrderResponseDto> getAllByUsername(String username) {
+    return orderRepository.findAllByUserUsername(username)
+            .stream()
+            .map(this::toResponse)
+            .toList();
+}
+
+
     private OrderResponseDto toResponse(Order order) {
         OrderResponseDto dto = new OrderResponseDto();
         dto.setId(order.getId());

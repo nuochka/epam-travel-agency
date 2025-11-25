@@ -12,6 +12,7 @@ public class TourDTO {
     private Long id;
     private String name;
     private Long cityId;
+    private String cityName;
     private Double price;
     private LocalDate startDate;
     private LocalDate endDate;

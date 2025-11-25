@@ -4,9 +4,14 @@ import com.epam.travel_agency.dto.order.OrderRequestDto;
 import com.epam.travel_agency.dto.order.OrderResponseDto;
 import com.epam.travel_agency.service.OrderService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -34,4 +39,12 @@ public class OrderController {
     public List<OrderResponseDto> getAll() {
         return orderService.getAll();
     }
+
+    @GetMapping("/view")
+    public String getOrdersForUser(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        List<OrderResponseDto> orders = orderService.getAllByUsername(userDetails.getUsername());
+        model.addAttribute("orders", orders);
+        return "orders/list";
+    }
+    
 }

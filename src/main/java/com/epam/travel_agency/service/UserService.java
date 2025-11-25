@@ -2,6 +2,7 @@ package com.epam.travel_agency.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.epam.travel_agency.dto.user.UserRequestDto;
 import com.epam.travel_agency.dto.user.UserResponseDto;
@@ -9,7 +10,10 @@ import com.epam.travel_agency.entity.User;
 import com.epam.travel_agency.entity.UserRole;
 import com.epam.travel_agency.repositories.UserRepository;
 import com.epam.travel_agency.repositories.UserRolesRepository;
+import lombok.RequiredArgsConstructor;
 
+@Service
+@RequiredArgsConstructor
 public class UserService {
     private  UserRepository userRepository;
     private  UserRolesRepository userRolesRepository;
