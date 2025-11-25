@@ -10,11 +10,11 @@
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-body">
                     <h3 class="card-title text-center mb-4">Login</h3>
-                    <form id="loginForm">
+                    <form id="loginForm" method="POST"> 
                         <div class="mb-3">
                             <label class="form-label">Username</label>
                             <input type="text" class="form-control" name="username" required>
@@ -31,6 +31,15 @@
     </div>
 </div>
 
+<div id="loginToast" class="toast position-fixed bottom-0 end-0 p-3" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <strong class="me-auto">Notification</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body" id="loginToastMessage"></div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/auth.js}"></script> 
 </body>
 </html>

@@ -40,14 +40,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @ResponseBody
     public LoginResponse login(@RequestBody LoginRequest dto) {
+        System.out.println("Login attempt for: " + dto.getUsername());
         authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        dto.getUsername(),
-                        dto.getPassword()
-                )
+            new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword())
         );
-
         String token = jwtUtil.generateToken(dto.getUsername());
         return new LoginResponse(token);
     }

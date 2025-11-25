@@ -16,4 +16,9 @@ public class HomeController {
         //model.addAttribute("tours", tourService.getAllTours());
         return "index";
     }
+
+    @GetMapping("/dashboard")
+    public String getDashboard() {
+        return "dashboard"; 
+    }
 }
