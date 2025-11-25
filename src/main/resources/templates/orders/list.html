@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Orders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>My Orders</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Tour</th>
+                <th>Status</th>
+                <th>Booking Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.tourName}"></td>
+                <td th:text="${order.status}"></td>
+                <td th:text="${order.bookingDate}"></td>
+                <td>
+                    <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                            th:onclick="'approveOrder(' + ${order.id} + ')'">Approve</button>
+                    <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                            th:onclick="'cancelOrder(' + ${order.id} + ')'">Cancel</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

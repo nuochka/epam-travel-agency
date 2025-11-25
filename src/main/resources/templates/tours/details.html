@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1 th:text="${tour.name}"></h1>
+    <p th:text="'Price: $' + ${tour.price}"></p>
+    <p th:text="'City: ' + ${tour.cityName}"></p>
+    <p th:text="'Available seats: ' + ${tour.availableSeats}"></p>
+    <button th:if="${#authentication.principal != null}" 
+            th:onclick="'bookTour(' + ${tour.id} + ')'">
+        Book Now
+    </button>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Agency</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <section class="hero-section">
+        <div class="hero-content text-center text-white">
+            <h1 class="display-4">Explore the World with our Travel Agency</h1>
+            <p class="lead">Discover your next adventure with our curated tours</p>
+            <a th:href="@{/tours}" class="btn btn-primary btn-lg">View Tours</a>
+        </div>
+    </section>
+
+
+    <section class="container my-5">
+        <h2 class="text-center mb-4 fw-bold">Featured Tours</h2>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="/images/tour1.jpg" class="card-img-top" alt="Santorini">
+                    <div class="card-body">
+                        <h5 class="card-title">Santorini Escape</h5>
+                        <p class="card-text">Enjoy the whitewashed cliffs, blue domes, and unforgettable sunsets.</p>
+                        <button class="btn btn-primary w-100">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="/images/tour2.jpg" class="card-img-top" alt="Paris">
+                    <div class="card-body">
+                        <h5 class="card-title">Romantic Paris</h5>
+                        <p class="card-text">Discover the City of Love — Eiffel Tower, croissants, and cozy cafés.</p>
+                        <button class="btn btn-primary w-100">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="/images/tour3.jpg" class="card-img-top" alt="Venice">
+                    <div class="card-body">
+                        <h5 class="card-title">Venice Water Tour</h5>
+                        <p class="card-text">Gondolas, canals, and magical narrow streets — a dream getaway.</p>
+                        <button class="btn btn-primary w-100">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="/images/tour4.jpg" class="card-img-top" alt="Tokyo">
+                    <div class="card-body">
+                        <h5 class="card-title">Tokyo Highlights</h5>
+                        <p class="card-text">A perfect mix of neon lights, temples, and futuristic vibes.</p>
+                        <button class="btn btn-primary w-100">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="/images/tour5.jpg" class="card-img-top" alt="New York">
+                    <div class="card-body">
+                        <h5 class="card-title">New York City Tour</h5>
+                        <p class="card-text">Times Square, Central Park, and iconic skyline views.</p>
+                        <button class="btn btn-primary w-100">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="/images/tour6.jpg" class="card-img-top" alt="Bali">
+                    <div class="card-body">
+                        <h5 class="card-title">Bali Paradise</h5>
+                        <p class="card-text">Tropical beaches, waterfalls, and relaxing vibes.</p>
+                        <button class="btn btn-primary w-100">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tours</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>All Tours</h1>
+    <div class="tours">
+        <div th:each="tour : ${tours}" class="tour-card">
+            <h3 th:text="${tour.name}"></h3>
+            <p th:text="'Price: $' + ${tour.price}"></p>
+            <p th:text="'City: ' + ${tour.cityName}"></p>
+            <a th:href="@{/tours/{id}(id=${tour.id})}">Details</a>
+        </div>
+    </div>
+</body>
+</html>
