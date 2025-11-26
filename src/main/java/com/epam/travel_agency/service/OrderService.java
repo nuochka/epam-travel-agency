@@ -24,12 +24,21 @@ public class OrderService {
     private final UserRepository userRepository;
     private final TourRepository tourRepository;
 
-    public OrderResponseDto createOrder(OrderRequestDto dto) {
-        User user = userRepository.findById(dto.getUserId())
+    public OrderResponseDto createOrder(OrderRequestDto dto, String username) {
+
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Tour tour = tourRepository.findById(dto.getTourId())
                 .orElseThrow(() -> new RuntimeException("Tour not found"));
+
+        if (tour.getAvailableSeats() <= 0) {
+            throw new RuntimeException("No available seats");
+        }
+
+        if (orderRepository.existsByUserIdAndTourId(user.getId(), tour.getId())) {
+            throw new RuntimeException("You already booked this tour");
+        }
 
         Order order = Order.builder()
                 .user(user)
@@ -37,6 +46,9 @@ public class OrderService {
                 .bookingDate(LocalDateTime.now())
                 .status(OrderStatus.NEW)
                 .build();
+
+        tour.setAvailableSeats(tour.getAvailableSeats() - 1);
+        tourRepository.save(tour);
 
         return toResponse(orderRepository.save(order));
     }
@@ -50,26 +62,37 @@ public class OrderService {
     }
 
     public OrderResponseDto cancel(Long orderId) {
+
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
+        if (order.getStatus() == OrderStatus.CANCELLED) {
+            throw new RuntimeException("Order already cancelled");
+        }
+
         order.setStatus(OrderStatus.CANCELLED);
-        return toResponse(orderRepository.save(order));
+        orderRepository.save(order);
+
+        Tour tour = order.getTour();
+        tour.setAvailableSeats(tour.getAvailableSeats() + 1);
+        tourRepository.save(tour);
+
+        return toResponse(order);
     }
 
     public List<OrderResponseDto> getAll() {
-        return orderRepository.findAll().stream()
+        return orderRepository.findAll()
+                .stream()
                 .map(this::toResponse)
                 .toList();
     }
 
     public List<OrderResponseDto> getAllByUsername(String username) {
-    return orderRepository.findAllByUserUsername(username)
-            .stream()
-            .map(this::toResponse)
-            .toList();
-}
-
+        return orderRepository.findAllByUserUsername(username)
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
 
     private OrderResponseDto toResponse(Order order) {
         OrderResponseDto dto = new OrderResponseDto();
@@ -79,5 +102,20 @@ public class OrderService {
         dto.setBookingDate(order.getBookingDate());
         dto.setStatus(order.getStatus());
         return dto;
+    }
+
+    public void deleteOrder(Long orderId, String username) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        if (!order.getUser().getUsername().equals(username)) {
+            throw new RuntimeException("Not your order");
+        }
+
+        if (order.getStatus() != OrderStatus.CANCELLED) {
+            throw new RuntimeException("Only cancelled orders can be deleted");
+        }
+
+        orderRepository.delete(order);
     }
 }

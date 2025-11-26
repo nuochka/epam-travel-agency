@@ -46,7 +46,9 @@ public class AuthController {
         authManager.authenticate(
             new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword())
         );
+
         String token = jwtUtil.generateToken(dto.getUsername());
-        return new LoginResponse(token);
+        var user = userService.findByUsername(dto.getUsername());
+        return new LoginResponse(token, user.getId(), user.getUsername());
     }
 }

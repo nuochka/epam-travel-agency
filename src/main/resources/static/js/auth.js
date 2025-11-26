@@ -85,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToast(loginToastEl, loginToastMessage, "Login successful! Redirecting...", "success");
 
                     localStorage.setItem("jwtToken", data.token);
+                    localStorage.setItem("username", data.username);
+                    localStorage.setItem("userId", data.userId);
 
                     setTimeout(() => {
                         window.location.href = "/dashboard";
