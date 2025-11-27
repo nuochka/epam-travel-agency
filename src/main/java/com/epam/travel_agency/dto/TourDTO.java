@@ -1,5 +1,6 @@
 package com.epam.travel_agency.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -11,7 +12,10 @@ import java.time.LocalDate;
 public class TourDTO {
     private Long id;
     private String name;
-    private Long cityId;
+    
+    @NotNull(message = "City ID is required.")
+    private Long cityId; 
+    
     private String cityName;
     private Double price;
     private LocalDate startDate;

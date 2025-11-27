@@ -50,4 +50,9 @@ public class UserService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
+    public boolean isAdmin(User user) {
+        if (user == null) return false;
+        return user.getRoles().stream().anyMatch(r -> r.getRole().equals("ROLE_ADMIN"));
+    }
 }

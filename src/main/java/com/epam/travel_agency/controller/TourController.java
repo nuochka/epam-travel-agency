@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.epam.travel_agency.dto.TourDTO;
 import com.epam.travel_agency.service.TourService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.ui.Model;
 import java.util.List;
 
@@ -26,9 +29,10 @@ public class TourController {
         return ResponseEntity.ok(tourService.getTourById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<TourDTO> createTour(@RequestBody TourDTO tourDTO) {
-        return ResponseEntity.ok(tourService.createTour(tourDTO));
+    @PostMapping("/create")
+    public ResponseEntity<TourDTO> createTour(@Valid @RequestBody TourDTO tourDTO) {
+        TourDTO createdTour = tourService.createTour(tourDTO);
+        return ResponseEntity.ok(createdTour);
     }
 
     @PutMapping("/{id}")
