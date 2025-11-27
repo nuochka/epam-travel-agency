@@ -12,33 +12,54 @@
     <h2>Welcome, <span id="username" th:text="${username}">User</span>!</h2>
 
     <div id="adminSection" style="display:none;">
-      <h3>Create New Tour</h3>
-      <form id="createTourForm" class="row g-3 mb-4">
-          <div class="col-md-4">
-              <input type="text" id="tourName" class="form-control" placeholder="Tour Name" required>
-          </div>
-          <div class="col-md-4">
-              <select id="tourCity" class="form-select" required>
-                  <option value="">Loading cities...</option>
-              </select>
-          </div>
-          <div class="col-md-2">
-              <input type="number" id="tourPrice" class="form-control" placeholder="Price" required>
-          </div>
-          <div class="col-md-2">
-              <input type="number" id="tourSeats" class="form-control" placeholder="Seats" required>
-          </div>
-          <div class="col-md-3">
-              <input type="date" id="tourStartDate" class="form-control" required>
-          </div>
-          <div class="col-md-3">
-              <input type="date" id="tourEndDate" class="form-control" required>
-          </div>
-          <div class="col-md-2">
-              <button type="submit" class="btn btn-success">Create Tour</button>
-          </div>
-      </form>
-  </div>
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-body">
+            <h3 class="mb-4 text-center">Create New Tour</h3>
+
+            <form id="createTourForm" class="row g-4">
+                
+                <div class="col-md-6">
+                    <label class="form-label">Tour Name</label>
+                    <input type="text" id="tourName" class="form-control" placeholder="Enter tour name" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">City</label>
+                    <select id="tourCity" class="form-select" required>
+                        <option value="">Loading cities...</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Price ($)</label>
+                    <input type="number" id="tourPrice" class="form-control" placeholder="Enter price" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Seats</label>
+                    <input type="number" id="tourSeats" class="form-control" placeholder="Available seats" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Start Date</label>
+                    <input type="date" id="tourStartDate" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">End Date</label>
+                    <input type="date" id="tourEndDate" class="form-control" required>
+                </div>
+
+                <div class="col-md-6 d-flex align-items-end">
+                    <button type="submit" class="btn btn-success w-100 py-2">
+                        Create Tour
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 
     <hr>

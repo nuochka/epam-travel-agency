@@ -193,23 +193,34 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             tourList.innerHTML = filtered.map(t => `
-                <div class="col-md-4 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">${t.name}</h5>
-                            <p>City: <b>${t.cityName}</b></p>
-                            <p>Price: <b>$${t.price}</b></p>
-                            <p>Seats: <b>${t.availableSeats}</b></p>
-                            <p>Start: ${new Date(t.startDate).toLocaleDateString()}</p>
-                            <p>End: ${new Date(t.endDate).toLocaleDateString()}</p>
-                            <button class="btn btn-primary bookBtn" data-id="${t.id}" data-name="${t.name}">Book</button>
-                            
-                            ${isAdmin ? `<button class="btn btn-danger deleteTourBtn mt-2" data-id="${t.id}">Delete</button>` : ""}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title mb-3 text-center">${t.name}</h5>
+
+                        <p class="mb-1"><b>City:</b> ${t.cityName}</p>
+                        <p class="mb-1"><b>Price:</b> $${t.price}</p>
+                        <p class="mb-1"><b>Seats:</b> ${t.availableSeats}</p>
+                        <p class="mb-1"><b>Start:</b> ${new Date(t.startDate).toLocaleDateString()}</p>
+                        <p class="mb-3"><b>End:</b> ${new Date(t.endDate).toLocaleDateString()}</p>
+
+                        <div class="mt-auto d-flex justify-content-between align-items-center">
+                            <button class="btn btn-primary w-50 me-2 bookBtn"
+                                data-id="${t.id}" data-name="${t.name}">
+                                Book
+                            </button>
+
+                            ${isAdmin ? `
+                                <button class="btn btn-outline-danger w-50 deleteTourBtn"
+                                    data-id="${t.id}" data-name="${t.name}">
+                                    Delete
+                                </button>
+                            ` : ""}
                         </div>
                     </div>
                 </div>
-            `).join('');
-
+            </div>
+        `).join('');
             document.querySelectorAll(".bookBtn").forEach(btn => {
                 btn.addEventListener("click", () => {
                     selectedTourId = btn.dataset.id;
