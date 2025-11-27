@@ -18,44 +18,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
+                <li th:if="${session.username != null}" class="nav-item">
+                    <a class="nav-link" href="/auth/logout">Logout</a>
+                </li>
+                
+                <li th:if="${session.username == null}" class="nav-item">
+                    <a class="nav-link" href="/auth/login">Login</a>
+                </li>
+                <li th:if="${session.username == null}" class="nav-item">
+                    <a class="nav-link" href="/auth/register">Register</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const navLinks = document.getElementById("navLinks");
-    const token = localStorage.getItem("jwtToken");
-    const username = localStorage.getItem("username");
-
-    if (token && username) {
-        navLinks.innerHTML += `
-            <li class="nav-item">
-                <span class="nav-link">Hello, ${username}</span>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" id="logoutBtn">Logout</a>
-            </li>
-        `;
-
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-            localStorage.removeItem("jwtToken");
-            localStorage.removeItem("username");
-            localStorage.removeItem("userId");
-            window.location.href = "/";
-        });
-    } else {
-        navLinks.innerHTML += `
-            <li class="nav-item">
-                <a class="nav-link" href="/auth/login">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/auth/register">Register</a>
-            </li>
-        `;
-    }
-});
-</script>
 </body>
 </html>

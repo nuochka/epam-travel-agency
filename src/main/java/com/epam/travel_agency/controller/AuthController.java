@@ -6,6 +6,9 @@ import com.epam.travel_agency.dto.user.UserRequestDto;
 import com.epam.travel_agency.dto.user.UserResponseDto;
 import com.epam.travel_agency.security.JwtUtil;
 import com.epam.travel_agency.service.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -41,14 +44,25 @@ public class AuthController {
 
     @PostMapping("/login")
     @ResponseBody
-    public LoginResponse login(@RequestBody LoginRequest dto) {
-        System.out.println("Login attempt for: " + dto.getUsername());
+    public LoginResponse login(@RequestBody LoginRequest dto, HttpServletRequest request) {
         authManager.authenticate(
             new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword())
         );
 
         String token = jwtUtil.generateToken(dto.getUsername());
         var user = userService.findByUsername(dto.getUsername());
+
+        request.getSession(true).setAttribute("username", user.getUsername());
+
         return new LoginResponse(token, user.getId(), user.getUsername());
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/auth/login";
     }
 }
