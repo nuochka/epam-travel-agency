@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const token = localStorage.getItem("jwtToken");
-    if (!token) { window.location.href = "/auth/login"; return; }
+    if (!token) { 
+        window.location.href = "/auth/login"; 
+        return; 
+    }
 
     const usernameEl = document.getElementById("username");
     const tourList = document.getElementById("tourList");
@@ -12,7 +15,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const bookModal = new bootstrap.Modal(document.getElementById("bookModal"));
     const cancelModal = new bootstrap.Modal(document.getElementById("cancelModal"));
-
     const bookModalTourName = document.getElementById("bookModalTourName");
     const bookModalConfirm = document.getElementById("bookModalConfirm");
     const cancelModalTourName = document.getElementById("cancelModalTourName");
@@ -31,8 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         toastMessage.textContent = message;
         new bootstrap.Toast(toastEl).show();
     }
-
-    usernameEl.textContent = JSON.parse(atob(token.split(".")[1])).sub;
 
     async function loadOrders() {
         try {
@@ -95,7 +95,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             allTours = await res.json();
 
             let filtered = [...allTours];
-
             const searchTerm = searchInput.value.toLowerCase();
             if (searchTerm) {
                 filtered = filtered.filter(t =>
@@ -115,6 +114,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h5 class="card-title">${t.name}</h5>
+                            <p>City: <b>${t.cityName}</b></p>
                             <p>Price: <b>$${t.price}</b></p>
                             <p>Seats: <b>${t.availableSeats}</b></p>
                             <p>Start: ${new Date(t.startDate).toLocaleDateString()}</p>
