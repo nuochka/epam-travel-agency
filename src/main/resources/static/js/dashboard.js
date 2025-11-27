@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="card shadow-sm h-100">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title mb-3 text-center">${t.name}</h5>
-
+                        <p class="mb-1"><b>Description:</b> ${t.description || "No description available"}</p>
                         <p class="mb-1"><b>City:</b> ${t.cityName}</p>
                         <p class="mb-1"><b>Price:</b> $${t.price}</p>
                         <p class="mb-1"><b>Seats:</b> ${t.availableSeats}</p>

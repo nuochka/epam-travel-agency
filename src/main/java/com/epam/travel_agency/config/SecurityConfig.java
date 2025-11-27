@@ -51,10 +51,12 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/tours/**").permitAll()
-                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**", "/dashboard").permitAll()
-                        .anyRequest().authenticated()
-                )
+                    .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers("/orders/**").authenticated()
+                    .requestMatchers("/tours/**").permitAll()
+                    .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**", "/dashboard").permitAll()
+                    .anyRequest().authenticated()
+                    )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

@@ -1,6 +1,5 @@
 package com.epam.travel_agency.service;
 
-
 import com.epam.travel_agency.dto.order.OrderRequestDto;
 import com.epam.travel_agency.dto.order.OrderResponseDto;
 import com.epam.travel_agency.dto.order.OrderStatus;
@@ -27,17 +26,18 @@ public class OrderService {
     public OrderResponseDto createOrder(OrderRequestDto dto, String username) {
 
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         Tour tour = tourRepository.findById(dto.getTourId())
-                .orElseThrow(() -> new RuntimeException("Tour not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Tour not found"));
 
-        if (tour.getAvailableSeats() <= 0) {
-            throw new RuntimeException("No available seats");
+        Integer seats = tour.getAvailableSeats();
+        if (seats == null || seats <= 0) {
+            throw new IllegalStateException("No available seats");
         }
 
         if (orderRepository.existsByUserIdAndTourId(user.getId(), tour.getId())) {
-            throw new RuntimeException("You already booked this tour");
+            throw new IllegalStateException("You already booked this tour");
         }
 
         Order order = Order.builder()
@@ -47,7 +47,7 @@ public class OrderService {
                 .status(OrderStatus.NEW)
                 .build();
 
-        tour.setAvailableSeats(tour.getAvailableSeats() - 1);
+        tour.setAvailableSeats(seats - 1);
         tourRepository.save(tour);
 
         return toResponse(orderRepository.save(order));
@@ -55,7 +55,7 @@ public class OrderService {
 
     public OrderResponseDto approve(Long orderId) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
 
         order.setStatus(OrderStatus.PAID);
         return toResponse(orderRepository.save(order));
@@ -64,10 +64,10 @@ public class OrderService {
     public OrderResponseDto cancel(Long orderId) {
 
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
 
         if (order.getStatus() == OrderStatus.CANCELLED) {
-            throw new RuntimeException("Order already cancelled");
+            throw new IllegalStateException("Order already cancelled");
         }
 
         order.setStatus(OrderStatus.CANCELLED);
@@ -106,14 +106,14 @@ public class OrderService {
 
     public void deleteOrder(Long orderId, String username) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
 
         if (!order.getUser().getUsername().equals(username)) {
-            throw new RuntimeException("Not your order");
+            throw new IllegalStateException("Not your order");
         }
 
         if (order.getStatus() != OrderStatus.CANCELLED) {
-            throw new RuntimeException("Only cancelled orders can be deleted");
+            throw new IllegalStateException("Only cancelled orders can be deleted");
         }
 
         orderRepository.delete(order);

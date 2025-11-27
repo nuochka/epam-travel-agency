@@ -10,17 +10,17 @@
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
     <section class="hero-section">
-        <div class="hero-content text-center text-white">
-            <h1 class="display-4">Explore the World with our Travel Agency</h1>
-            <p class="lead">Discover your next adventure with our curated tours</p>
-            
-            <a th:href="${session.username != null} ? @{/dashboard} : @{/auth/login}" 
-               class="btn btn-primary btn-lg">View Tours</a>
-        </div>
-    </section>
+    <div class="hero-content text-center text-white">
+        <h1 class="display-4" th:text="#{hero.title}">Explore the World with our Travel Agency</h1>
+        <p class="lead" th:text="#{hero.subtitle}">Discover your next adventure with our curated tours</p>
+        
+        <a th:href="${session.username != null} ? @{/dashboard} : @{/auth/login}" 
+           class="btn btn-primary btn-lg" th:text="#{hero.button}">View Tours</a>
+    </div>
+</section>
 
     <section class="container my-5">
-        <h2 class="text-center mb-4 fw-bold">Featured Tours</h2>
+        <h2 class="text-center mb-4 fw-bold" th:text="#{featured.title}">Featured Tours</h2>
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
 
@@ -28,10 +28,10 @@
                 <div class="card h-100 shadow-sm">
                     <img src="/images/tour1.jpg" class="card-img-top" alt="Santorini">
                     <div class="card-body">
-                        <h5 class="card-title">Santorini Escape</h5>
-                        <p class="card-text">Enjoy the whitewashed cliffs, blue domes, and unforgettable sunsets.</p>
-                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100">View Details</a>
-                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()">View Details</a>
+                        <h5 class="card-title" th:text="#{tour1.title}">Santorini Escape</h5>
+                        <p class="card-text" th:text="#{tour1.desc}">Enjoy the whitewashed cliffs...</p>
+                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100" th:text="#{hero.button}">View Details</a>
+                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()" th:text="#{hero.button}">View Details</a>
                     </div>
                 </div>
             </div>
@@ -40,10 +40,10 @@
                 <div class="card h-100 shadow-sm">
                     <img src="/images/tour2.jpg" class="card-img-top" alt="Paris">
                     <div class="card-body">
-                        <h5 class="card-title">Romantic Paris</h5>
-                        <p class="card-text">Discover the City of Love — Eiffel Tower, croissants, and cozy cafés.</p>
-                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100">View Details</a>
-                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()">View Details</a>
+                        <h5 class="card-title" th:text="#{tour2.title}">Romantic Paris</h5>
+                        <p class="card-text" th:text="#{tour2.desc}">Discover the City of Love...</p>
+                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100" th:text="#{hero.button}">View Details</a>
+                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()" th:text="#{hero.button}">View Details</a>
                     </div>
                 </div>
             </div>
@@ -52,10 +52,10 @@
                 <div class="card h-100 shadow-sm">
                     <img src="/images/tour3.jpg" class="card-img-top" alt="Venice">
                     <div class="card-body">
-                        <h5 class="card-title">Venice Water Tour</h5>
-                        <p class="card-text">Gondolas, canals, and magical narrow streets — a dream getaway.</p>
-                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100">View Details</a>
-                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()">View Details</a>
+                        <h5 class="card-title" th:text="#{tour3.title}">Venice Water Tour</h5>
+                        <p class="card-text" th:text="#{tour3.desc}">Gondolas, canals...</p>
+                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100" th:text="#{hero.button}">View Details</a>
+                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()" th:text="#{hero.button}">View Details</a>
                     </div>
                 </div>
             </div>
@@ -64,10 +64,10 @@
                 <div class="card h-100 shadow-sm">
                     <img src="/images/tour4.jpg" class="card-img-top" alt="Tokyo">
                     <div class="card-body">
-                        <h5 class="card-title">Tokyo Highlights</h5>
-                        <p class="card-text">A perfect mix of neon lights, temples, and futuristic vibes.</p>
-                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100">View Details</a>
-                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()">View Details</a>
+                        <h5 class="card-title" th:text="#{tour4.title}">Tokyo Highlights</h5>
+                        <p class="card-text" th:text="#{tour4.desc}">A perfect mix of neon lights...</p>
+                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100" th:text="#{hero.button}">View Details</a>
+                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()" th:text="#{hero.button}">View Details</a>
                     </div>
                 </div>
             </div>
@@ -76,10 +76,10 @@
                 <div class="card h-100 shadow-sm">
                     <img src="/images/tour5.jpg" class="card-img-top" alt="New York">
                     <div class="card-body">
-                        <h5 class="card-title">New York City Tour</h5>
-                        <p class="card-text">Times Square, Central Park, and iconic skyline views.</p>
-                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100">View Details</a>
-                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()">View Details</a>
+                        <h5 class="card-title" th:text="#{tour5.title}">New York City Tour</h5>
+                        <p class="card-text" th:text="#{tour5.desc}">Times Square, Central Park...</p>
+                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100" th:text="#{hero.button}">View Details</a>
+                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()" th:text="#{hero.button}">View Details</a>
                     </div>
                 </div>
             </div>
@@ -88,10 +88,10 @@
                 <div class="card h-100 shadow-sm">
                     <img src="/images/tour6.jpg" class="card-img-top" alt="Bali">
                     <div class="card-body">
-                        <h5 class="card-title">Bali Paradise</h5>
-                        <p class="card-text">Tropical beaches, waterfalls, and relaxing vibes.</p>
-                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100">View Details</a>
-                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()">View Details</a>
+                        <h5 class="card-title" th:text="#{tour6.title}">Bali Paradise</h5>
+                        <p class="card-text" th:text="#{tour6.desc}">Tropical beaches, waterfalls...</p>
+                        <a th:if="${session.username != null}" th:href="@{/dashboard}" class="btn btn-primary w-100" th:text="#{hero.button}">View Details</a>
+                        <a th:if="${session.username == null}" href="#" class="btn btn-primary w-100" onclick="loginAlert()" th:text="#{hero.button}">View Details</a>
                     </div>
                 </div>
             </div>

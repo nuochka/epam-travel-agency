@@ -21,4 +21,6 @@ public class TourDTO {
     private LocalDate startDate;
     private LocalDate endDate;
     private Integer availableSeats;
+
+    private String description;
 }

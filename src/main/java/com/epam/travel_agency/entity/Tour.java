@@ -21,11 +21,15 @@ public class Tour {
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
     private Double price;
 
     private java.time.LocalDate startDate;
     private java.time.LocalDate endDate;
 
+    @Column(name = "available_seats")
     private Integer availableSeats;
 }
 

@@ -45,12 +45,13 @@ public class TourService {
                 .startDate(tourDTO.getStartDate())
                 .endDate(tourDTO.getEndDate())
                 .availableSeats(tourDTO.getAvailableSeats())
+                .description(tourDTO.getDescription())
                 .build();
         Tour saved = tourRepository.save(tour);
         return modelMapper.map(saved, TourDTO.class);
-    }
+        }
 
-    public TourDTO updateTour(Long id, TourDTO tourDTO) {
+        public TourDTO updateTour(Long id, TourDTO tourDTO) {
         Tour tour = tourRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Tour not found"));
         City city = cityRepository.findById(tourDTO.getCityId())
@@ -62,10 +63,11 @@ public class TourService {
         tour.setStartDate(tourDTO.getStartDate());
         tour.setEndDate(tourDTO.getEndDate());
         tour.setAvailableSeats(tourDTO.getAvailableSeats());
+        tour.setDescription(tourDTO.getDescription());
 
         Tour updated = tourRepository.save(tour);
         return modelMapper.map(updated, TourDTO.class);
-    }
+        }
 
     public void deleteTour(Long id) {
         Tour tour = tourRepository.findById(id)

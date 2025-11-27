@@ -7,26 +7,39 @@
 <body>
 <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="/">Travel Agency</a>
+        <a class="navbar-brand" href="/" th:text="#{nav.brand}">Travel Agency</a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav" aria-controls="navbarNav"
-                aria-expanded="false" aria-label="Toggle navigation">
+                data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto" id="navLinks">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/" th:text="#{nav.home}">Home</a>
                 </li>
+
                 <li th:if="${session.username != null}" class="nav-item">
-                    <a class="nav-link" href="/auth/logout">Logout</a>
+                    <a class="nav-link" href="/auth/logout" th:text="#{nav.logout}">Logout</a>
                 </li>
-                
+
                 <li th:if="${session.username == null}" class="nav-item">
-                    <a class="nav-link" href="/auth/login">Login</a>
+                    <a class="nav-link" href="/auth/login" th:text="#{nav.login}">Login</a>
                 </li>
+
                 <li th:if="${session.username == null}" class="nav-item">
-                    <a class="nav-link" href="/auth/register">Register</a>
+                    <a class="nav-link" href="/auth/register" th:text="#{nav.register}">Register</a>
+                </li>
+
+                <li class="nav-item dropdown ms-3">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        🌐 <span th:text="#{nav.language}">Language</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="?lang=en">English</a></li>
+                        <li><a class="dropdown-item" href="?lang=uk">Українська</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
