@@ -1,3 +1,65 @@
+CREATE TABLE IF NOT EXISTS country (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS city (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    country_id INT NOT NULL,
+    CONSTRAINT fk_city_country FOREIGN KEY (country_id) REFERENCES country(id)
+);
+
+CREATE TABLE IF NOT EXISTS "user" (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_roles (
+    user_id INT NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    PRIMARY KEY (user_id, role),
+    CONSTRAINT fk_userroles_user FOREIGN KEY (user_id) REFERENCES "user"(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS tour (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    city_id INT NOT NULL,
+    description TEXT,
+    price DOUBLE PRECISION,
+    start_date DATE,
+    end_date DATE,
+    available_seats INT,
+    CONSTRAINT fk_tour_city FOREIGN KEY (city_id) REFERENCES city(id)
+);
+
+CREATE TABLE IF NOT EXISTS "order" (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    tour_id INT NOT NULL,
+    booking_date TIMESTAMP,
+    status VARCHAR(50),
+    CONSTRAINT fk_order_user FOREIGN KEY (user_id) REFERENCES "user"(id),
+    CONSTRAINT fk_order_tour FOREIGN KEY (tour_id) REFERENCES tour(id)
+);
+
+SELECT setval('tour_id_seq', (SELECT MAX(id) FROM tour));
+
+
+-- Users
+INSERT INTO users (id, email, username, password) VALUES
+(2, 'user_admin@gmail.com', 'user_admin', '$2a$10$c1tct2ZkwP918ilgugzcyegpClba1fnuZSgBIuKdtdyMI4H2pW5iG'),
+(4, 'user@gmail.com', 'user', '$2a$10$LsKW9ZltSK2sJNVPjYqwdO5K2.WqusyrKSv4MwwAFRsunVxMPp0mm');
+
+INSERT INTO user_roles (user_id, role) VALUES
+(2, 'ROLE_ADMIN'),
+(4, 'ROLE_USER');
+
+
 -- Countries
 INSERT INTO country (id, name) VALUES
 (1, 'France'),
@@ -36,6 +98,8 @@ INSERT INTO city (id, name, country_id) VALUES
 (20, 'Vancouver', 10)
 ON CONFLICT (id) DO NOTHING;
 
+
+-- Tours
 INSERT INTO tour (id, name, price, city_id, available_seats, description, start_date, end_date) VALUES
 (1, 'Romantic Paris', 1200, 1, 20, 'A 5-day romantic trip to Paris', '2025-12-01', '2025-12-05'),
 (2, 'Berlin History Tour', 900, 3, 25, 'Explore Berlin''s history and landmarks', '2025-12-10', '2025-12-15'),

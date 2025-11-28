@@ -4,13 +4,8 @@ import com.epam.travel_agency.dto.order.OrderRequestDto;
 import com.epam.travel_agency.dto.order.OrderResponseDto;
 import com.epam.travel_agency.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -25,9 +20,9 @@ public class OrderController {
     @PostMapping
     public OrderResponseDto create(
             @RequestBody OrderRequestDto dto,
-            @AuthenticationPrincipal UserDetails userDetails
+            Principal principal
     ) {
-        return orderService.createOrder(dto, userDetails.getUsername());
+        return orderService.createOrder(dto, principal.getName());
     }
 
     @PutMapping("/{id}/approve")
@@ -47,8 +42,8 @@ public class OrderController {
 
     @GetMapping("/me")
     @ResponseBody
-    public List<OrderResponseDto> getMyOrders(@AuthenticationPrincipal UserDetails userDetails) {
-        return orderService.getAllByUsername(userDetails.getUsername());
+    public List<OrderResponseDto> getMyOrders(Principal principal) {
+        return orderService.getAllByUsername(principal.getName());
     }
 
     @DeleteMapping("/{orderId}")
